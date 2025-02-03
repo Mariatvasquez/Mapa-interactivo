@@ -3,16 +3,46 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    color: #333;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(
+        to bottom, 
+        #c46363,
+        #e49797 25%, 
+        transparent 70%, 
+        transparent 100% 
+    ), 
+    url('/IMG/Venezuelan\ sunset\ III.jpg') bottom center / cover no-repeat;
+}
+
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    margin: 30px 0;
+    padding: 0;
 }
 
 h1 {
     margin: 30px 0;
+}
+
+.subtitulo {
+    margin: 10px 0 0;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+#subtitulo.hidden {
+    opacity: 0; 
+    pointer-events: none;
 }
 
 .container {
@@ -21,104 +51,190 @@ h1 {
     max-width: 1200px;
     min-height: 500px;
     position: relative;
+    flex-direction: column; 
+    align-items: center; 
+    margin-top: 20px; 
 }
-
 #info-columna {
-    width: 300px;
-    padding:0px;
-    text-align:10left;
-    background: #88b8d3;
-    border-right: 1px solid #3a5772;
-    position: fixed;
-    left: -300px; /* Oculta la barra lateral por defecto */
-    top: 0;
-    height: 110vh;
     transition: left 0.3s ease;
+    width: 300px;
+    padding: 25px;
+    background: rgba(219, 177, 113, 0.95);
+    backdrop-filter: blur(5px);
+    box-shadow: 3px 0 15px rgba(0,0,0,0.1);
+    border-right: 5px;
+    border-top: 40px;
+    position: fixed;
+    left: -300px;
+    top: 0;
+    height: 100vh;
     z-index: 1000;
+    padding-top: 60px;
+    transform: translateX(-100%);
 }
 
 #info-columna.active {
-    left: 0; /* Muestra la barra lateral */
+    left: 0;
+    transform: translateX(0);
+    
 }
+
 
 .map {
-    flex: 1;
-    padding: 20px;
-    margin-left: 0; /* Ajusta el margen cuando la barra lateral está oculta */
-    transition: margin-left 0.3s ease;
+    width: 80%;
+    padding: 10px;
+    margin: 10px 10px; /* Eliminamos el margen izquierdo/derecho */
+    background: transparent;
+    border-radius: 1px;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
 }
 
-.map.with-sidebar {
-    margin-left: 300px; /* Ajusta el margen cuando la barra lateral está visible */
+.map svg {
+    width: 80%;
+    height: auto;
+    max-height: 68vh; /* Ajustamos la altura máxima */
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
+
+
+.map.with-sidebar {
+    margin-left: 320px; 
+    transition: margin 0.3s ease;
+}
+
 
 #toggle-sidebar {
     position: fixed;
-    left: 10px;
-    top: 10px;
+    left: 20px;
+    top: 20px;
     z-index: 1001;
-    background: #333;
+    background: #6e1111;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 3px;
     cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    font-size: 15px;
+   
 }
 
-/* Estilos para la sección de APIs */
+#toggle-sidebar:hover {
+    background: #4a0c0c;
+    transform: scale(1.1);
+}
+
+
+/* APIs */
 .api-section {
     margin: 2rem auto;
-    padding: 1.5rem;
-    max-width: 800px;
-    background: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 40px; /* Espacio entre el mapa y las APIs */
 }
 
 .api-container {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background: white;
-    border-radius: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px; /* 1rem = 16px */
+    margin-top: 24px; /* 1.5rem = 24px */
 }
 
-.api-container h3 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
 }
 
 input, select {
-    padding: 0.5rem;
-    margin: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 200px;
+    height: 35px;
+    padding: 12px; 
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px; /* 1rem = 16px */
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #6e1111;
+    outline: none;
+    box-shadow: 0 0 5px rgba(110, 17, 17, 0.2);
 }
 
 button {
-    padding: 0.5rem 1rem;
-    background: #3498db;
+    height: 35px;
+    width: 65px;
+    padding: 12.8px 24px; 
+    background: #6e1111;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 button:hover {
-    background: #2980b9;
+    background: #4a0c0c;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
 .result-box {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    margin-top: 15px; 
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     min-height: 100px;
+    font-family: 'Courier New', Courier, monospace;
+    overflow-x: auto;
 }
 
 .error-box {
     color: #e74c3c;
-    padding: 1rem;
-    margin-top: 1rem;
+    padding: 16px; 
+    margin-top: 16px; 
+}
+
+.controles-audio {
+    margin-top: 20px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.controles-audio button {
+    padding: 20px 20px;
+    border: 10px;
+    border-radius: 20px;
+    background: #6e1111;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.controles-audio button:hover {
+    background: #4a0c0c;
+    transform: scale(1.05);
+}
+
+.controles-audio button:active {
+    transform: scale(1);
 }

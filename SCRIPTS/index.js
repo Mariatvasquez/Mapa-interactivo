@@ -1,74 +1,85 @@
 class InfoRegion {
-    constructor(estados, region, resena, generos) {
+    constructor(estados, region, resena, generos, audio) {
         this.estados = estados;
         this.region = region;
         this.resena = resena;
         this.generos = generos;
+        this.audio = audio; 
     }
 
     obtenerInformacion() {
         return {
             region: this.region,
             resena: this.resena,
-            generos: this.generos
+            generos: this.generos,
+            audio: this.audio
         };
     }
 }
 
-// Definición de las regiones como instancias de InfoRegion
+
 const regionLlanos = new InfoRegion(
     ["est.guarico", "est.apure", "est.barinas", "est.cojedes", "est.portuguesa"],
     "Los Llanos",
-    "La música llanera es el género más representativo de esta región, caracterizada por el uso del arpa, cuatro y maracas.",
-    ["Joropo", "Golpe", "Pasaje"]
+    "En los vastos llanos venezolanos, el joropo es el alma de la tierra. Con el sonido del arpa, el cuatro y las maracas, esta música llena de energía y pasión narra historias de amor, trabajo y naturaleza. El contrapunteo, donde los copleros improvisan versos, es un duelo de ingenio y tradición. Cada nota del arpa y el repique de las maracas te transportan a las sabanas infinitas, donde la música es el latido del corazón llanero.",
+    ["Joropo", "Golpe", "Pasaje"],
+    "audios/zumbaqzumba.mp4"
 );
 
 const regionAndes = new InfoRegion(
     ["est.tachira", "est.trujillo", "est.merida"],
     "Andina",
-    "La música andina venezolana se caracteriza por el uso de instrumentos como la guitarra, el violín y la bandola.",
-    ["Bambuco", "Vals", "Pasillo"]
+    "En las montañas andinas, la música es un susurro del viento entre los páramos. El vals andino y el bambuco te envuelven con su dulzura y elegancia, mientras el Violin andino te invita a bailar con su ritmo alegre. Con el violín, la guitarra y el tiple, los Andes cuentan historias de amor y tradición. Cada nota es un reflejo de la serenidad y la belleza de esta tierra.",
+    ["Bambuco", "Vals", "Violin Andino"],
+    "audios/violin.mp4"
 );
 
 const regionOriental = new InfoRegion(
     ["est.anzoategui", "est.monagas", "est.sucre", "est.nueva esparta", "est.dependencias federales"],
     "Oriental",
-    "La música oriental combina influencias caribeñas y africanas, con géneros como el joropo oriental y la gaita.",
-    ["Joropo Oriental", "Gaita", "Polo"]
+    "El oriente venezolano es una fiesta de ritmos y colores. El joropo oriental, con su mandolina y su cadencia única, te envuelve en melodías que hablan del mar y la brisa. Los polos y margariteños alegran las calles con su ritmo festivo. En cada nota, se siente el sabor a salitre y la calidez de su gente ¡Descubre la magia de la música oriental y déjate llevar por su encanto! ",
+    ["Joropo Oriental", "Galerón", "Polo"],
+    "audios/joriental.mp4"
 );
 
 const regionCentral = new InfoRegion(
     ["est.aragua", "est.miranda", "est.vargas", "est.distrito capital", "est.carabobo"],
     "Central",
-    "La región central es conocida por su diversidad musical, incluyendo géneros como el calipso y la salsa.",
-    ["Calipso", "Salsa", "Merengue"]
+    "En la región central de Venezuela, el tambor es el latido que une tradición y festividad. Este género, heredado de las raíces africanas, se vive con intensidad en celebraciones como los Velorios de Cruz y las fiestas de San Juan. Con tambores como el mina, el curbeta y el culo e’ puya, se crean ritmos contagiosos que invitan al baile y a la conexión espiritual. Junto al merengue caraqueño, el joropo tuyero y la salsa, el tambor es una expresión de alegría, fe y resistencia cultural..",
+    ["Tambor", "Salsa", "Merengue caraqueño"],
+    "audios/tambor.mp4"
 );
 
 const regionOccidente = new InfoRegion(
     ["est.lara", "est.falcon", "est.yaracuy"],
     "Occidental",
-    "La música occidental incluye géneros como el tamunangue y el golpe tocuyano.",
-    ["Tamunangue", "Golpe Tocuyano"]
+    "El occidente venezolano es un tesoro de tradiciones musicales. El golpe tocuyano y el tamunangue llenan de alegría las fiestas populares. Con el cuatro, las maracas y el tambor, esta región celebra la vida y la fe en cada nota. La música occidental es una mezcla de devoción y fiesta, que te invita a bailar y cantar.",
+    ["Tamunangue", "Golpe Tocuyano","Décimas"],
+    "audios/tamunangue.mp4"
 );
 
 const regionGuayana = new InfoRegion(
     ["est.amazonas", "est.bolivar", "est.delta amacuro"],
     "Guayana",
-    "La música de Guayana tiene influencias indígenas y africanas, con géneros como el maremare y el calipso.",
-    ["Maremare", "Calipso"]
+    "En las tierras mágicas de Guayana, la música es un viaje a las raíces ancestrales, la cual tiene influencias indígenas y africanas.  El calipso de El Callao llena de alegría los carnavales con sus tambores y steelpans, mientras los cantos indígenas conectan con la selva y los ríos. Cada ritmo es un homenaje a la diversidad cultural de esta región. ",
+    ["Carimbó", "Calipso", "Maremare"],
+    "audios/calypso.mp4"
 );
 
 const regionZuliana = new InfoRegion(
     ["est.zulia"],
     "Zuliana",
-    "La región zuliana es famosa por la gaita, un género musical típico de la época navideña.",
-    ["Gaita Zuliana"]
+    "En el Zulia, la música es sinónimo de fiesta y tradición. La gaita zuliana, con su tambora, furruco y charrasca, es el himno de la Navidad y la identidad zuliana e inunda a toda Venezuela en épocas decembrinas. Cada nota es una celebración de la vida y la cultura.",
+    ["Gaita Zuliana", "Contradanza"],
+    "audios/gaita.mp4"
 );
 
-// Lista de todas las regiones
 const regiones = [regionLlanos, regionAndes, regionOriental, regionCentral, regionOccidente, regionGuayana, regionZuliana];
 
-// Función para obtener la información de una región por el ID del estado
+// control de audio
+let audioActual = null;
+let regionReproduciendo = null;
+
 function obtenerInformacionRegion(estadoId) {
     for (const region of regiones) {
         if (region.estados.includes(estadoId)) {
@@ -77,21 +88,98 @@ function obtenerInformacionRegion(estadoId) {
                 nombre: estadoId.replace("est.", "").toUpperCase(),
                 region: infoRegion.region,
                 resena: infoRegion.resena,
-                generos: infoRegion.generos
+                generos: infoRegion.generos,
+                audio: infoRegion.audio
             };
         }
     }
-
     return {
         nombre: "Desconocido",
         region: "Desconocida",
         resena: "No hay información disponible.",
-        generos: []
+        generos: [],
+        audio: null
     };
 }
 
-// Función para colorear los estados
-function colorearEstados(region, color) {
+function manejarReproduccion(audioPath, region) {
+    if (regionReproduciendo === region) {
+        audioActual.paused ? audioActual.play() : audioActual.pause();
+    } else {
+        if (audioActual) audioActual.pause();
+        audioActual = new Audio(audioPath);
+        audioActual.play();
+        regionReproduciendo = region;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("info-columna");
+    const toggleButton = document.getElementById("toggle-sidebar");
+    const mapContainer = document.querySelector(".map");
+    const infoTitulo = document.getElementById("info-titulo");
+    const infoDescripcion = document.getElementById("info-descripcion");
+    const paths = document.querySelectorAll("path");
+
+    // abrir/cerrar la barra lateral
+    toggleButton.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+        mapContainer.classList.toggle("with-sidebar");
+    });
+
+    toggleButton.addEventListener("click", function () {
+        console.log("Botón de toggle clickeado");
+        sidebar.classList.toggle("active");
+        mapContainer.classList.toggle("with-sidebar");
+    });
+
+    //click en regiones
+    paths.forEach((path) => {
+        path.addEventListener("click", function () {
+            const estadoId = path.getAttribute("id");
+            const regionInfo = obtenerInformacionRegion(estadoId);
+
+            // actualiza barra lateral
+            infoTitulo.textContent = regionInfo.nombre;
+            infoDescripcion.innerHTML = `
+                <p><strong>Región:</strong> ${regionInfo.region}</p>
+                <p><strong>Reseña musical:</strong> ${regionInfo.resena}</p>
+                <p><strong>Géneros:</strong> ${regionInfo.generos.join(", ")}</p>
+                <div class="controles-audio">
+                    <button id="togglePlay">⏯️ ${audioActual?.paused ? 'Reproducir' : 'Pausar'}</button>
+                    <button id="stopAudio">⏹ Detener</button>
+                </div>`;
+
+        
+            if (regionInfo.audio) {
+                manejarReproduccion(regionInfo.audio, regionInfo.region);
+                
+               
+                path.style.transform = "scale(1.05)";
+                setTimeout(() => path.style.transform = "", 200);
+            }
+
+            if (!sidebar.classList.contains("active")) {
+                sidebar.classList.add("active");
+                mapContainer.classList.add("with-sidebar");
+            }
+        });
+    });
+
+    // Controles de audio
+    document.addEventListener('click', function(e) {
+        if (e.target.id === 'togglePlay' && audioActual) {
+            audioActual.paused ? audioActual.play() : audioActual.pause();
+        }
+        if (e.target.id === 'stopAudio' && audioActual) {
+            audioActual.pause();
+            audioActual.currentTime = 0;
+            regionReproduciendo = null;
+        }
+    });
+});
+
+function colorEstados(region, color) {
     region.estados.forEach(estado => {
         const elemento = document.getElementById(estado);
         if (elemento) {
@@ -102,59 +190,58 @@ function colorearEstados(region, color) {
     });
 }
 
-// Colorear los estados según la región
-colorearEstados(regionLlanos, "#72ac18");
-colorearEstados(regionAndes, "#0061b3");
-colorearEstados(regionOriental, "#008c63");
-colorearEstados(regionCentral, "#e8525c");
-colorearEstados(regionOccidente, "#ff8a2b");
-colorearEstados(regionGuayana, "#e2ff77");
-colorearEstados(regionZuliana, "#ffdf13");
 
-// Función para mostrar tooltips al pasar el mouse sobre los estados
+colorEstados(regionLlanos, "#72ac18");
+colorEstados(regionAndes, "#0061b3");
+colorEstados(regionOriental, "#008c63");
+colorEstados(regionCentral, "#e8525c");
+colorEstados(regionOccidente, "#ff8a2b");
+colorEstados(regionGuayana, "#e2ff77");
+colorEstados(regionZuliana, "#ffdf13");
+
+
 function mostrarRegion(estadoId, region) {
     const estado = document.getElementById(estadoId);
     if (estado) {
-        let tooltip; // Declaramos la variable tooltip fuera de los eventos
+        let tooltip;
 
         estado.addEventListener("mouseover", () => {
-            // Crear el tooltip
+            
             tooltip = document.createElement("div");
             tooltip.className = "tooltip";
-            tooltip.textContent = `Región: ${region}`;
+            tooltip.textContent = `Región ${region}`;
             document.body.appendChild(tooltip);
 
-            // Asegurarse de que el tooltip tenga posición absoluta
             tooltip.style.position = "absolute";
-            tooltip.style.pointerEvents = "none"; // Evitar que el tooltip interfiera con el mouse
+            tooltip.style.pointerEvents = "none"; 
             tooltip.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
             tooltip.style.color = "white";
             tooltip.style.padding = "5px";
             tooltip.style.borderRadius = "3px";
             tooltip.style.fontSize = "14px";
-            tooltip.style.zIndex = "1000"; // Asegurarse de que esté por encima de otros elementos
+            tooltip.style.zIndex = "1000";
         });
 
         estado.addEventListener("mousemove", (e) => {
             if (tooltip) {
-                // Mover el tooltip junto con el cursor
+                
                 tooltip.style.top = `${e.clientY + 10}px`;
                 tooltip.style.left = `${e.clientX + 10}px`;
             }
         });
 
         estado.addEventListener("mouseout", () => {
-            // Eliminar el tooltip cuando el mouse sale del estado
+            
             if (tooltip) {
                 document.body.removeChild(tooltip);
-                tooltip = null; // Limpiar la referencia
+                tooltip = null; 
             }
         });
     }
 }
 
-// Mostrar tooltips para algunos estados
-mostrarRegion("est.apure", "Los Llanos");
+
+mostrarRegion("est.apure","Los Llanos");
 mostrarRegion("est.tachira", "Andina");
 mostrarRegion("est.lara", "Occidental");
 mostrarRegion("est.anzoategui", "Oriental");
@@ -162,7 +249,7 @@ mostrarRegion("est.aragua", "Central");
 mostrarRegion("est.bolivar", "Guayana");
 mostrarRegion("est.zulia", "Zuliana");
 
-// Evento para mostrar la información en la barra lateral al hacer clic en un estado
+
 document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("info-columna");
     const toggleButton = document.getElementById("toggle-sidebar");
@@ -170,14 +257,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const infoTitulo = document.getElementById("info-titulo");
     const infoDescripcion = document.getElementById("info-descripcion");
     const paths = document.querySelectorAll("path");
-
-    // Función para abrir/cerrar la barra lateral
+    
+    
+    // abrir/cerrar la barra lateral
     toggleButton.addEventListener("click", function () {
         sidebar.classList.toggle("active");
         mapContainer.classList.toggle("with-sidebar");
     });
 
-    // Función para mostrar información en la barra lateral al hacer clic en una región
+    //información en la barra lateral
     paths.forEach((path) => {
         path.addEventListener("click", function () {
             const estadoId = path.getAttribute("id");
@@ -200,10 +288,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Configuración de URLs
+
 const URL_API = 'https://unefa6tosistemas2025api.onrender.com/api/articulos';
 
-// Función para buscar alumno
+
 async function buscarAlumno() {
     const cedula = document.getElementById('cedulaInput').value;
     const resultado = document.getElementById('alumnoResult');
@@ -230,7 +318,7 @@ async function buscarAlumno() {
     }
 }
 
-// Función para buscar artículos
+
 async function buscarArticulos() {
     const alumnoId = document.getElementById('alumnoIdInput').value;
     const categoria = document.getElementById('categoriaSelect').value;
