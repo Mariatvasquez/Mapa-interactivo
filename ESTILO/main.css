@@ -83,7 +83,7 @@ h1 {
 .map {
     width: 80%;
     padding: 10px;
-    margin: 10px 10px; /* Eliminamos el margen izquierdo/derecho */
+    margin: 10px 10px; 
     background: transparent;
     border-radius: 1px;
     overflow: visible;
@@ -94,9 +94,9 @@ h1 {
 .map svg {
     width: 80%;
     height: auto;
-    max-height: 68vh; /* Ajustamos la altura máxima */
+    max-height: 68vh;
     display: block;
-    margin: 0 auto;
+    margin: 10 auto;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
