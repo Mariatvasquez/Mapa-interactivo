@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Controles de audio
+    // Controles en audio
     document.addEventListener('click', function(e) {
         if (e.target.id === 'togglePlay' && audioActual) {
             audioActual.paused ? audioActual.play() : audioActual.pause();
